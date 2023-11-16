@@ -10,4 +10,6 @@ app.use(json())
 
 app.use(authRoutes) // usa a rota de autenticação, pense na lógica da seguinte forma: routes -> server 
 
-app.listen(5000, () => console.log('Server listening in port 50000'))
+const port = process.env.PORT
+
+app.listen(port, () => console.log(`Server listening in port ${port}`))
