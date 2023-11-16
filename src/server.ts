@@ -2,7 +2,6 @@ import express, { json } from "express"
 import authRoutes from "./routes/authRoutes"
 import { connectDb } from "./config/database"
 
-
 const app = express()
 
 connectDb()
