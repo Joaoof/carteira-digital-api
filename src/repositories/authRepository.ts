@@ -1,5 +1,13 @@
-function create(data: Object) {
+import User from "../schemas/User"
+
+function create(data: object) {
     return data
 }
 
-export default { create }
+async function findByEmail(email: string){
+    const user = await User.findOne({ email })
+
+    return user
+}
+
+export default { create, findByEmail }
