@@ -1,12 +1,34 @@
 import { Request, Response } from "express"
 import authService from "../services/authService"
 
-async function signup(req: Request & { body: Body}, res: Response)  {
-    const body = req.body
+interface RequestBody {
+    body: Body
+    name: string
+    email: string
+    password: string
+}
 
-   const resService = await authService.signup(body)
+async function signup(req: Request, res: Response) {
+    const body: RequestBody = req.body
 
-   res.send(resService)
-} 
+    try {
+        const resService = await authService.signup(body)
+        return res.status(201).send(resService)
+    } catch (error) {
+        return res.status(409).send((error as Error).message)
 
-export default { signup }
+    }
+}
+
+async function signin(req: Request, res: Response) {
+    const body: RequestBody = req.body
+
+    try {
+        const token = await authService.signin(body)
+        return res.send(token)
+    } catch (error) {
+        return res.status(401).send((error as Error).message)
+    }
+}
+
+export default { signup, signin }
