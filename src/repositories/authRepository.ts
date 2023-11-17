@@ -1,7 +1,7 @@
 import User from "../schemas/User"
 
-function create(data: object) {
-    return data
+async function create(data: object) {
+    return await User.create(data)
 }
 
 async function findByEmail(email: string){

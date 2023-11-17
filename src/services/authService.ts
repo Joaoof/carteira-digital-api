@@ -8,7 +8,7 @@ async function signup(body: { body: Body, password: string, email: string }) {
     const userExists = await authRepository.findByEmail(body.email)
     if (userExists) throw new Error("User already Exists")
 
-    return authRepository.create({ ...body, password: hasPassword })
+    return await authRepository.create({ ...body, password: hasPassword })
 }
 
 
