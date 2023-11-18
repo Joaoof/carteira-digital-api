@@ -1,9 +1,9 @@
 import { Router } from "express"
 import transactionController from "../controllers/transactionController"
-import { authMiddlewares } from "../middlewares/authMiddlewares"
+import { authMiddleware } from "../middlewares/authMiddlewares"
 
-const transactionRouter = Router()
+const transactionRouter: Router = Router()
 
-transactionRouter.post('/transactions', authMiddlewares, transactionController.create)
+transactionRouter.post('/transactions', authMiddleware, transactionController.create)
 
 export default transactionRouter
