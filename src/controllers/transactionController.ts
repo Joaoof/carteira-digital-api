@@ -8,10 +8,16 @@ interface BodyRequest {
     password: string
 }
 
+interface User {
+    _id: string;
+    // outras propriedades...
+  }
+  
+
 
 async function create(req: Request, res: Response) {
     const body: BodyRequest = await req.body
-    const id: string = "6557523e6bee9f05c7d774ab"
+    const { _id: id }: User = res.locals.user
 
     try {
             const transaction = await transactionService.create(body, id)

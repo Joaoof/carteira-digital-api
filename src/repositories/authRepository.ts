@@ -16,8 +16,15 @@ async function findByEmail(email: string) {
     return user
 }
 
-async function generateToken(id: Types.ObjectId) {
+async function generateToken(id: string| jwt.JwtPayload) {
     return jwt.sign({ id }, `${sha256}`, { expiresIn: 86400 })
 }
 
-export default { create, findByEmail, generateToken }
+async function findById(id: string | jwt.JwtPayload | undefined) {
+    const user = await User.findById(id)
+
+    return user
+}
+
+
+export default { create, findByEmail, generateToken, findById }
