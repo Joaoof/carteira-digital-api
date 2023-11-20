@@ -1,3 +1,4 @@
+import { ObjectId, Schema, Types } from "mongoose"
 import transactionService from "../services/transactionService"
 import { Response, Request } from "express"
 
@@ -9,9 +10,10 @@ interface BodyRequest {
 }
 
 interface User {
-    _id: string;
+    _id: Types.ObjectId;
     // outras propriedades...
-  }
+}
+
   
 
 
@@ -27,4 +29,15 @@ async function create(req: Request, res: Response) {
     }
 }
 
-export default { create }
+async function findAllByUser(req: Request, res: Response) {
+    const { _id: id }: User = res.locals.user
+
+    try {
+        const transactions = await transactionService.findAllByUser(id)
+        return res.status(201).send(transactions)
+    } catch (error) {
+       return res.status(500).send((error as Error).message)
+    }
+}
+
+export default { create, findAllByUser }

@@ -4,6 +4,9 @@ import { authMiddleware } from "../middlewares/authMiddlewares"
 
 const transactionRouter: Router = Router()
 
-transactionRouter.post('/transactions', authMiddleware, transactionController.create)
+transactionRouter.use(authMiddleware)
+
+transactionRouter.post('/transactions',  transactionController.create)
+transactionRouter.get('/transactions', transactionController.findAllByUser)
 
 export default transactionRouter

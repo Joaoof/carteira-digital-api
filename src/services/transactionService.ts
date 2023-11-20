@@ -1,3 +1,4 @@
+import { Types } from "mongoose"
 import transactionRepository from "../repositories/transactionRepository"
 
 interface RequestBody {
@@ -8,10 +9,14 @@ interface RequestBody {
 }
 
 
-async function create(body: RequestBody, id: string) {
+async function create(body: RequestBody, id: Types.ObjectId) {
     if (!id) throw new Error("User id is requires")
 
-    return await transactionRepository.create({ ...body, userId: id  })
+    return await transactionRepository.create({ ...body, userId: id })
 }
 
-export default { create }
+async function findAllByUser(id: Types.ObjectId) {
+    return await transactionRepository.findAllByUser(id)
+}
+
+export default { create, findAllByUser }
