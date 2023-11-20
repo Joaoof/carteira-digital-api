@@ -1,11 +1,16 @@
 import { Request, Response } from "express"
 import authService from "../services/authService"
+import { Types } from "mongoose"
 
 interface RequestBody {
     body: Body
     name: string
     email: string
     password: string
+}
+
+interface User {
+    _id: Types.ObjectId
 }
 
 async function signup(req: Request, res: Response) {
@@ -31,4 +36,15 @@ async function signin(req: Request, res: Response) {
     }
 }
 
-export default { signup, signin }
+async function userLogged(req: Request, res: Response) {
+    const { _id: id }: User = res.locals.user
+
+    try {
+        const user = await authService.userLogged(id)
+        return res.send(user)
+    } catch (error) {
+        return res.status(404).send((error as Error).message)
+    }
+}
+
+export default { signup, signin, userLogged }

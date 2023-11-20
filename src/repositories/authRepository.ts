@@ -26,5 +26,4 @@ async function findById(id: string | jwt.JwtPayload | undefined) {
     return user
 }
 
-
 export default { create, findByEmail, generateToken, findById }
