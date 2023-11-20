@@ -9,6 +9,13 @@ interface RequestBody {
 }
 
 
+interface Transaction {
+    value: string
+    description: string
+    type: string 
+}
+
+
 async function create(body: RequestBody, id: Types.ObjectId) {
     if (!id) throw new Error("User id is requires")
 
@@ -19,4 +26,12 @@ async function findAllByUser(id: Types.ObjectId) {
     return await transactionRepository.findAllByUser(id)
 }
 
-export default { create, findAllByUser }
+async function findUpdateUser(id: Types.ObjectId, value: string, description: string, type: string): Promise<Transaction> {
+    return await transactionRepository.findByIdAndUpdate(id, value, description, type)
+}
+
+async function findByAndDelete(id: Types.ObjectId): Promise<Transaction> {
+    return await transactionRepository.findByAndDelete(id)
+}
+
+export default { create, findAllByUser, findUpdateUser, findByAndDelete }
